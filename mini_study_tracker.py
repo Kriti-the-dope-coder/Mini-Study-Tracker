@@ -30,8 +30,7 @@ def add_entry(user_bucket):
     user_bucket[subject].append(entry)
 
     # Tiny motivational line
-    if confidence == 1 or confidence == 2 or confidence == 3:
-        print("Logged")
+    print("Logged")
 
 def compute_summary_rows(user_bucket):
     """
@@ -42,8 +41,10 @@ def compute_summary_rows(user_bucket):
     for subject, entries in user_bucket.items():
         if not entries:
             continue
+
         # topics list
         topics = [e["Topic"] for e in entries]
+
         # keep order, remove duplicates lightly
         seen, uniq_topics = set(), []
         for t in topics:
@@ -128,59 +129,11 @@ print("\nWelcome,", current_name)
 user_bucket = ensure_user_bucket(current_name)
 
 while True:
-    print("\n 1. Add new study entry\n 2. View summary\n 3. Mood reflector\n 4. Switch user\n 5. Exit")
-    choice = input("\nEnter your choice: ").strip()
-
-    if choice == "1":
-        add_entry(user_bucket)
-    elif choice == "2":
-        print_summary(user_bucket)
-    elif choice == "3":
-        mood_reflector()
-    elif choice == "4":
-        current_name = switch_user()
-        print("Switched to:", current_name)
-        user_bucket = ensure_user_bucket(current_name)
-    elif choice == "5":
-        print("\nGoodbye!\n")
-        break
-    else:
-        print("\nInvalid choice. Please enter a number between 1 and 5.\n")
-
-def mood_reflector():
-    moods = {
-        "1": ("Tired",       "Do a 15-minute light review, then take a break."),
-        "2": ("Stressed",    "Journal your worries and fear."),
-        "3": ("Unmotivated", "Set a 5-minute timer. Don't force yourself to learn, just try to complete a small task."),
-        "4": ("Focused",     "Perfect time to tackle your weakest subject first."),
-        "5": ("Happy",       "Use your energy to go deeper in one topic you love."),
-    }
-    print("\n🌿 Mood Reflector")
-    print(" 1) Tired  2) Stressed  3) Unmotivated  4) Focused  5) Happy")
-    choice = input("Choose your mood (1–5): ").strip()
-    if choice in moods:
-        name, tip = moods[choice]
-        print(f"\nMood: {name}\nAdvice: {tip}")
-    else:
-        print("Please choose a number 1–5.")
-
-def switch_user():
-    new_name = input("\nEnter user name: ").strip().title()
-    while not new_name:
-        new_name = input("Name cannot be empty. Enter user name: ").strip().title()
-    return new_name
-
-# Main Loop
-print("Welcome to Study Tracker")
-current_name = input("Please enter your name: ").strip().title()
-while not current_name:
-    current_name = input("Name cannot be empty. Please enter your name: ").strip().title()
-
-print("\nWelcome,", current_name)
-user_bucket = ensure_user_bucket(current_name)
-
-while True:
-    print("\n 1. Add new study entry\n 2. View summary\n 3. Mood reflector\n 4. Switch user\n 5. Exit")
+    print("\n 1. Add new study entry")
+    print(" 2. View summary")
+    print(" 3. Mood reflector")
+    print(" 4. Switch user")
+    print(" 5. Exit")
     choice = input("\nEnter your choice: ").strip()
 
     if choice == "1":
